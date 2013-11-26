@@ -7,8 +7,8 @@ import org.bukkit.ChatColor;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class MicroBlocks extends JavaPlugin implements Listener {
-
+public class Microblocks extends JavaPlugin implements Listener {
+	
 	MicroblockCommand mbc;
 	ArrayList<String> lore = new ArrayList<String>();
 	ArrayList<String> skullLore = new ArrayList<String>();

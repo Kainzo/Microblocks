@@ -12,8 +12,8 @@ import org.bukkit.inventory.meta.SkullMeta;
 public class SkullCommand implements CommandExecutor {
 	
 	/** Required Stuff **/
-	private MicroBlocks mb;
-	public SkullCommand(MicroBlocks mb) {
+	private Microblocks mb;
+	public SkullCommand(Microblocks mb) {
 		this.mb = mb;
 	}
 	
