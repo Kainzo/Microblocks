@@ -5,3 +5,9 @@ Microblocks is a unique take on player heads in Minecraft, allowing for "micro-s
 === Compiling
 
 Maven 3 is required to compile Microblocks.
+
+=== Commands and Permissions
+
+Commands:
+`/mb - Main Command - mb.use
+/skull - Spawn Player Skulls - mb.skull`
