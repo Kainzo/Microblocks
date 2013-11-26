@@ -9,5 +9,5 @@ Maven 3 is required to compile Microblocks.
 === Commands and Permissions
 
 Commands:
-`/mb - Main Command - mb.use
-/skull - Spawn Player Skulls - mb.skull`
+/mb - Main Command - mb.use
+/skull - Spawn Player Skulls - mb.skull
