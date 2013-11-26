@@ -1,14 +1,14 @@
 name: Microblocks
-version: 1.6.2
+version: 1.7
 description: Extra building blocks!
 author: itsCrafted
 
-main: net.itscrafted.microblocks.MicroBlocks
+main: net.itscrafted.microblocks.Microblocks
  
 commands:
   microblocks:
     description: Spawn microblocks.
-    aliases: [mb, miniblocks]
+    aliases: [mb, miniblocks, micro]
   skull:
     description: Spawn a player skull.
     aliases: [head, playerhead, ph]
