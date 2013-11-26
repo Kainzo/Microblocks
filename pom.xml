@@ -3,7 +3,7 @@
     <groupId>net.itscrafted</groupId>
     <artifactId>microblocks</artifactId>
     <version>1.6.2</version>
-    <name>Microblocks</name>
+    <name>microblocks</name>
     <url>https://github.com/itsCrafted/Microblocks</url>
     <issueManagement>
         <system>GitHub</system>
