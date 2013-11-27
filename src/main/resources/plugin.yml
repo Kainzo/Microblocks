@@ -8,7 +8,7 @@ main: net.itscrafted.microblocks.Microblocks
 commands:
   microblocks:
     description: Spawn microblocks.
-    aliases: [mb, miniblocks, micro]
+    aliases: [mb, miniblocks]
   skull:
     description: Spawn a player skull.
     aliases: [head, playerhead, ph]
