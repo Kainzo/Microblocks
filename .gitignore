@@ -3,9 +3,6 @@
 /.project
 /.settings
 
-# netbeans
-/nbproject
-
 # we use maven!
 /build.xml
 
@@ -25,9 +22,3 @@
 
 # Mac filesystem dust
 /.DS_Store
-
-# intellij
-*.iml
-*.ipr
-*.iws
-.idea/
