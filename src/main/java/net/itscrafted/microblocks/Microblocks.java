@@ -7,11 +7,19 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class Microblocks extends JavaPlugin {
 	
+	/** Reference the Command Class **/
 	MicroblockCommand mbc;
+	
+	/** Create ArrayLists for the item lores **/
 	ArrayList<String> lore = new ArrayList<String>();
 	ArrayList<String> skullLore = new ArrayList<String>();
 	
 	public void onEnable() {
+		/** Configuration **/
+		getConfig().options().copyDefaults(true);
+		getConfig().options().header("Enable 'safe-mode' to only allow 'safe' heads.");
+		saveConfig();
+		
 		/** Informative Message(s) **/
 		getLogger().info("Please report any head mismatches to itsCrafted on BukkitDev/SpigotMC.");
 		

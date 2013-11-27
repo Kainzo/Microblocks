@@ -11,7 +11,7 @@ import org.bukkit.inventory.meta.SkullMeta;
 
 public class SkullCommand implements CommandExecutor {
 	
-	/** Required Stuff **/
+	/** Reference the main class. **/
 	private Microblocks mb;
 	public SkullCommand(Microblocks mb) {
 		this.mb = mb;
@@ -34,11 +34,11 @@ public class SkullCommand implements CommandExecutor {
 	
 	/** Command Method **/
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		/** Get the Player **/
-		Player p = (Player) sender;
-		
 		/** Skull Command **/
-		if(cmd.getLabel().equalsIgnoreCase("skull")) {
+		if(cmd.getLabel().equalsIgnoreCase("skull") && sender instanceof Player) {
+			/** Get the Player **/
+			Player p = (Player) sender;
+			
 			if(p.hasPermission("mb.skull")) {
 				if(args.length == 0) {
 					/** Show the player help if the args length is zero **/
@@ -67,6 +67,8 @@ public class SkullCommand implements CommandExecutor {
 			}else {
 				p.sendMessage(ChatColor.RED + "You do not have permission for this.");
 			}
+		}else {
+			sender.sendMessage(ChatColor.RED + "Only ingame players may use this command.");
 		}
 		
 		return false;

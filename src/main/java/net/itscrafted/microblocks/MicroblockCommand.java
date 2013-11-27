@@ -12,8 +12,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
 
 public class MicroblockCommand implements CommandExecutor {
-
-	/** Required Stuff **/
+	
+	/** Reference the main class **/
 	private Microblocks mb;
 	public MicroblockCommand(Microblocks mb) {
 		this.mb = mb;
@@ -80,14 +80,17 @@ public class MicroblockCommand implements CommandExecutor {
     }
 	
 	/** Add a Microblock to a player's inventory. **/
-	public void addMB(Player p, String headName, boolean deprecated, String microblock) {
-		
-		if(deprecated) {
-			p.sendMessage(ChatColor.RED + "This head is currently deprecated.");
+	public void addMB(Player p, String headName, boolean safe, String microblock) {
+		/** If safe-mode is enabled, check that the head is safe. **/
+		if(mb.getConfig().getBoolean("safe-mode") == true && !safe) {
+				p.sendMessage(ChatColor.GOLD + "This is an " + ChatColor.RED + "unsafe head" + ChatColor.GOLD + 
+						", you cannot use it.");
+				p.sendMessage(ChatColor.GOLD + "If you wish to use it, disable " + ChatColor.RED +
+						"'safe-mode' " + ChatColor.GOLD + "in the config.");
 		}else {
-			p.getInventory().addItem(mblock(new ItemStack(Material.SKULL_ITEM, 1, (byte) 3), headName, microblock));
-			p.sendMessage(ChatColor.GOLD + "You have been given the " + ChatColor.GRAY + microblock
-					+ ChatColor.GOLD + " microblock.");
+				p.getInventory().addItem(mblock(new ItemStack(Material.SKULL_ITEM, 1, (byte) 3), headName, microblock));
+				p.sendMessage(ChatColor.GOLD + "You have been given the " + ChatColor.GRAY + microblock
+						+ ChatColor.GOLD + " microblock.");
 		}
 	}
 	
@@ -96,11 +99,12 @@ public class MicroblockCommand implements CommandExecutor {
 	
 	/** Command **/
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		/** Get the Player **/
-		Player p = (Player) sender;
 		
 		/** Microblocks Command **/
-		if(cmd.getLabel().equalsIgnoreCase("microblocks")) {
+		if(cmd.getLabel().equalsIgnoreCase("microblocks") && sender instanceof Player) {
+			/** Get the Player **/
+			Player p = (Player) sender;
+			
 			/** Permission Check **/
 			if(!p.hasPermission("mb.use")) {
 				p.sendMessage(ChatColor.RED + "You do not have permission for this.");
@@ -118,32 +122,34 @@ public class MicroblockCommand implements CommandExecutor {
 					if(args[0].equalsIgnoreCase("about") || args[0].equalsIgnoreCase("help")) {
 						p.sendMessage(ChatColor.GOLD + "Microblocks " + ChatColor.GRAY + "v" + mb.getDescription().getVersion() + ChatColor.GOLD + " by " + ChatColor.GRAY +
 								"CraftyCreator/itsCrafted" + ChatColor.GOLD + ".");
-						p.sendMessage(ChatColor.RED + "/mb for a list of blocks.");
-						p.sendMessage(ChatColor.RED + "/mb <block> to spawn a Microblock.");
-						p.sendMessage(ChatColor.RED + "/skull <player/self> to spawn a skull");
+						p.sendMessage(ChatColor.RED + "/mb" + ChatColor.YELLOW + " for a list of blocks.");
+						p.sendMessage(ChatColor.RED + "/mb <block>" + ChatColor.YELLOW + " to spawn a Microblock.");
+						p.sendMessage(ChatColor.RED + "/mb reload" + ChatColor.YELLOW + " to reload the configuration");
+						p.sendMessage(ChatColor.RED + "/skull <player/self>" + ChatColor.YELLOW + " to spawn a skull");
 					}else if(args[0].equalsIgnoreCase("2")) {
-							p.sendMessage("");
-							p.sendMessage(ChatColor.RED + "Microblocks (Page Two):" + ChatColor.YELLOW + arrayToString(secondPage));
-							p.sendMessage(ChatColor.RED + "Type /mb for the first page.");
-							p.sendMessage(ChatColor.RED + "Usage: /mb <block>");
+						p.sendMessage("");
+						p.sendMessage(ChatColor.RED + "Microblocks (Page Two):" + ChatColor.YELLOW + arrayToString(secondPage));
+						p.sendMessage(ChatColor.RED + "Type /mb for the first page.");
+						p.sendMessage(ChatColor.RED + "Usage: /mb <block>");
+					}else if(args[0].equalsIgnoreCase("reload")) {
+						mb.reloadConfig();
+						p.sendMessage(ChatColor.GRAY + "Microblocks " + ChatColor.GOLD + "configuration reloaded.");
 					}else if(args[0].equalsIgnoreCase("apple")) {
-						addMB(p, "MHF_Apple", false, "apple");
+						addMB(p, "MHF_Apple", true, "apple");
 					}else if(args[0].equalsIgnoreCase("arrowdown")) {
-						addMB(p, "MHF_ArrowDown", false, "arrowdown");
+						addMB(p, "MHF_ArrowDown", true, "arrowdown");
 					}else if(args[0].equalsIgnoreCase("arrowleft")) {
-						addMB(p, "MHF_ArrowLeft", false, "arrowleft");
+						addMB(p, "MHF_ArrowLeft", true, "arrowleft");
 					}else if(args[0].equalsIgnoreCase("arrowright")) {
-						addMB(p, "MHF_ArrowRight", false, "arrowright");
+						addMB(p, "MHF_ArrowRight", true, "arrowright");
 					}else if(args[0].equalsIgnoreCase("arrowup")) {
-						addMB(p, "MHF_ArrowUp", false, "arrowup");
-					}else if(args[0].equalsIgnoreCase("bacon")) {
-						addMB(p, "Baby_Potato", true, "bacon");
+						addMB(p, "MHF_ArrowUp", true, "arrowup");
 					}else if(args[0].equalsIgnoreCase("enderchest")) {
 						addMB(p, "_Brennian", false, "enderchest");
 					}else if(args[0].equalsIgnoreCase("monitor")) {
 						addMB(p, "Alistor", false, "monitor");
 					}else if(args[0].equalsIgnoreCase("blaze")) {
-						addMB(p, "MHF_Blaze", false, "blaze");
+						addMB(p, "MHF_Blaze", true, "blaze");
 					}else if(args[0].equalsIgnoreCase("bookshelf")) {
 						addMB(p, "BowAimbot", false, "bookshelf");
 					}else if(args[0].equalsIgnoreCase("ice")) {
@@ -157,21 +163,21 @@ public class MicroblockCommand implements CommandExecutor {
 					}else if(args[0].equalsIgnoreCase("qcube")) {
 						addMB(p, "jarrettgabe", false, "qcube");
 					}else if(args[0].equalsIgnoreCase("cactus")) {
-						addMB(p, "MHF_Cactus", false, "cactus");
+						addMB(p, "MHF_Cactus", true, "cactus");
 					}else if(args[0].equalsIgnoreCase("cake")) {
-						addMB(p, "MHF_Cake", false, "cake");
+						addMB(p, "MHF_Cake", true, "cake");
 					}else if(args[0].equalsIgnoreCase("camera")) {
-						addMB(p, "FHG_Cam", false, "camera");
+						addMB(p, "FHG_Cam", true, "camera");
 					}else if(args[0].equalsIgnoreCase("cavespider")) {
-						addMB(p, "MHF_CaveSpider", false, "cavespider");
+						addMB(p, "MHF_CaveSpider", true, "cavespider");
 					}else if(args[0].equalsIgnoreCase("horse")) {
 						addMB(p, "gavertoso", false, "horse");
 					}else if(args[0].equalsIgnoreCase("cherry")) {
 						addMB(p, "TheEvilEnderman", false, "cherry");
 					}else if(args[0].equalsIgnoreCase("chest")) {
-						addMB(p, "MHF_Chest", false, "chest");
+						addMB(p, "MHF_Chest", true, "chest");
 					}else if(args[0].equalsIgnoreCase("chicken")) {
-						addMB(p, "MHF_Chicken", false, "chicken");
+						addMB(p, "MHF_Chicken", true, "chicken");
 					}else if(args[0].equalsIgnoreCase("clock")) {
 						addMB(p, "nikx004", false, "clock");
 					}else if(args[0].equalsIgnoreCase("coconut")) {
@@ -179,7 +185,7 @@ public class MicroblockCommand implements CommandExecutor {
 					}else if(args[0].equalsIgnoreCase("companioncube")) {
 						addMB(p, "sk8erace1", false, "companioncube");
 					}else if(args[0].equalsIgnoreCase("cow")) {
-						addMB(p, "MHF_Cow", false, "cow");
+						addMB(p, "MHF_Cow", true, "cow");
 					}else if(args[0].equalsIgnoreCase("derpysnow")) {
 						addMB(p, "GLaDOS", false, "derpysnow");
 					}else if(args[0].equalsIgnoreCase("diamondblock")) {
@@ -205,11 +211,11 @@ public class MicroblockCommand implements CommandExecutor {
 					}else if(args[0].equalsIgnoreCase("enderdragon")) {
 						addMB(p, "KingEndermen", false, "enderdragon");
 					}else if(args[0].equalsIgnoreCase("enderman")) {
-						addMB(p, "MHF_Enderman", false, "enderman");
+						addMB(p, "MHF_Enderman", true, "enderman");
 					}else if(args[0].equalsIgnoreCase("exclamation")) {
-						addMB(p, "MHF_Exclamation", false, "exclamation");
+						addMB(p, "MHF_Exclamation", true, "exclamation");
 					}else if(args[0].equalsIgnoreCase("golem")) {
-						addMB(p, "MHF_Golem", false, "golem");
+						addMB(p, "MHF_Golem", true, "golem");
 					}else if(args[0].equalsIgnoreCase("grass")) {
 						addMB(p, "MoulaTime", false, "grass");
 					}else if(args[0].equalsIgnoreCase("haybale")) {
@@ -217,17 +223,17 @@ public class MicroblockCommand implements CommandExecutor {
 					}else if(args[0].equalsIgnoreCase("headlight")) {
 						addMB(p, "Toby_The_Coder", false, "headlight");
 					}else if(args[0].equalsIgnoreCase("herobrine")) {
-						addMB(p, "MHF_Herobrine", false, "herobrine");
+						addMB(p, "MHF_Herobrine", true, "herobrine");
 					}else if(args[0].equalsIgnoreCase("ironblock")) {
 						addMB(p, "metalhedd", false, "ironblock");
 					}else if(args[0].equalsIgnoreCase("witch")) {
 						addMB(p, "scrafbrothers4", false, "witch");
 					}else if(args[0].equalsIgnoreCase("jukebox")) {
-						addMB(p, "C418", false, "jukebox");
+						addMB(p, "C418", true, "jukebox");
 					}else if(args[0].equalsIgnoreCase("lampon")) {
 						addMB(p, "AutoSoup", false, "lampon");
 					}else if(args[0].equalsIgnoreCase("lavaslime")) {
-						addMB(p, "MHF_LavaSlime", false, "lavaslime");
+						addMB(p, "MHF_LavaSlime", true, "lavaslime");
 					}else if(args[0].equalsIgnoreCase("leaves")) {
 						addMB(p, "rsfx", false, "leaves");
 					}else if(args[0].equalsIgnoreCase("lemon")) {
@@ -237,13 +243,13 @@ public class MicroblockCommand implements CommandExecutor {
 					}else if(args[0].equalsIgnoreCase("machine")) {
 						addMB(p, "aetherX", false, "machine");
 					}else if(args[0].equalsIgnoreCase("melon")) {
-						addMB(p, "MHF_Melon", false, "melon");
+						addMB(p, "MHF_Melon", true, "melon");
 					}else if(args[0].equalsIgnoreCase("mossycobblestone")) {
 						addMB(p, "Khrenan", false, "mossycobblestone");
 					}else if(args[0].equalsIgnoreCase("muffin")) {
 						addMB(p, "ChoclateMuffin", false, "muffin");
 					}else if(args[0].equalsIgnoreCase("mushroomcow")) {
-						addMB(p, "MHF_MushroomCow", false, "mushroomcow");
+						addMB(p, "MHF_MushroomCow", true, "mushroomcow");
 					}else if(args[0].equalsIgnoreCase("netherrack")) {
 						addMB(p, "Numba_one_Stunna", false, "netherrack");
 					}else if(args[0].equalsIgnoreCase("notexture")) {
@@ -251,19 +257,19 @@ public class MicroblockCommand implements CommandExecutor {
 					}else if(args[0].equalsIgnoreCase("oaklog2")) {
 						addMB(p, "MightyMega", false, "oaklog2");
 					}else if(args[0].equalsIgnoreCase("oaklog")) {
-						addMB(p, "MHF_OakLog", false, "oaklog");
+						addMB(p, "MHF_OakLog", true, "oaklog");
 					}else if(args[0].equalsIgnoreCase("obsidian")) {
 						addMB(p, "loiwiol", false, "obsidian");
 					}else if(args[0].equalsIgnoreCase("ocelot")) {
-						addMB(p, "MHF_Ocelot", false, "ocelot");
+						addMB(p, "MHF_Ocelot", true, "ocelot");
 					}else if(args[0].equalsIgnoreCase("orange")) {
 						addMB(p, "hi1232", false, "orange");
 					}else if(args[0].equalsIgnoreCase("eyeofender")) {
 						addMB(p, "Edna_I", false, "eyeofender");
 					}else if(args[0].equalsIgnoreCase("pigzombie")) {
-						addMB(p, "MHF_PigZombie", false, "pigzombie");
+						addMB(p, "MHF_PigZombie", true, "pigzombie");
 					}else if(args[0].equalsIgnoreCase("pig")) {
-						addMB(p, "MHF_Pig", false, "pig");
+						addMB(p, "MHF_Pig", true, "pig");
 					}else if(args[0].equalsIgnoreCase("piston")) {
 						addMB(p, "JL2579", false, "piston");
 					}else if(args[0].equalsIgnoreCase("podzol")) {
@@ -275,35 +281,33 @@ public class MicroblockCommand implements CommandExecutor {
 					}else if(args[0].equalsIgnoreCase("pumpkinface")) {
 						addMB(p, "Koebasti", false, "pumpkinface");
 					}else if(args[0].equalsIgnoreCase("pumpkin")) {
-						addMB(p, "MHF_Pumpkin", false, "pumpkin");
+						addMB(p, "MHF_Pumpkin", true, "pumpkin");
 					}else if(args[0].equalsIgnoreCase("quartzblock")) {
 						addMB(p, "bubbadawg01", false, "quartzblock");
 					}else if(args[0].equalsIgnoreCase("question")) {
-						addMB(p, "MHF_Question", false, "question");
+						addMB(p, "MHF_Question", true, "question");
 					}else if(args[0].equalsIgnoreCase("radio")) {
 						addMB(p, "uioz", false, "radio");
 					}else if(args[0].equalsIgnoreCase("redsand")) {
 						addMB(p, "OmniSulfur", false, "redsand");
 					}else if(args[0].equalsIgnoreCase("redstoneore")) {
 						addMB(p, "annayirb", false, "redstoneore");
-					}else if(args[0].equalsIgnoreCase("rubixcube2")) {
-						addMB(p, "Unreal", true, "rubixcube2");
 					}else if(args[0].equalsIgnoreCase("rubixcube")) {
 						addMB(p, "iTactical17", false, "rubixcube");
 					}else if(args[0].equalsIgnoreCase("sand")) {
 						addMB(p, "rugofluk", false, "sand");
 					}else if(args[0].equalsIgnoreCase("sheep")) {
-						addMB(p, "MHF_Sheep", false, "sheep");
+						addMB(p, "MHF_Sheep", true, "sheep");
 					}else if(args[0].equalsIgnoreCase("slime")) {
-						addMB(p, "MHF_Slime", false, "slime");
+						addMB(p, "MHF_Slime", true, "slime");
 					}else if(args[0].equalsIgnoreCase("speaker")) {
 						addMB(p, "b1418", false, "speaker");
 					}else if(args[0].equalsIgnoreCase("spider")) {
-						addMB(p, "MHF_Spider", false, "spider");
+						addMB(p, "MHF_Spider", true, "spider");
 					}else if(args[0].equalsIgnoreCase("sponge")) {
 						addMB(p, "pomi44", false, "sponge");
 					}else if(args[0].equalsIgnoreCase("squid")) {
-						addMB(p, "MHF_Squid", false, "squid");
+						addMB(p, "MHF_Squid", true, "squid");
 					}else if(args[0].equalsIgnoreCase("stickypiston")) {
 						addMB(p, "Panda4994", false, "stickypiston");
 					}else if(args[0].equalsIgnoreCase("stone")) {
@@ -311,9 +315,9 @@ public class MicroblockCommand implements CommandExecutor {
 					}else if(args[0].equalsIgnoreCase("taco")) {
 						addMB(p, "Crunchy_Taco34", false, "taco");
 					}else if(args[0].equalsIgnoreCase("tnt2")) {
-						addMB(p, "MHF_TNT2", false, "tnt2");
+						addMB(p, "MHF_TNT2", true, "tnt2");
 					}else if(args[0].equalsIgnoreCase("tnt")) {
-						addMB(p, "MHF_TNT", false, "tnt");
+						addMB(p, "MHF_TNT", true, "tnt");
 					}else if(args[0].equalsIgnoreCase("toaster")) {
 						addMB(p, "pologobbyboy", false, "toaster");
 					}else if(args[0].equalsIgnoreCase("toiletpaper")) {
@@ -321,9 +325,9 @@ public class MicroblockCommand implements CommandExecutor {
 					}else if(args[0].equalsIgnoreCase("tv")) {
 						addMB(p, "Metroidling", false, "tv");
 					}else if(args[0].equalsIgnoreCase("villager")) {
-						addMB(p, "MHF_Villager", false, "villager");
+						addMB(p, "MHF_Villager", true, "villager");
 					}else if(args[0].equalsIgnoreCase("ghast")) {
-						addMB(p, "MHF_Ghast", false, "ghast");
+						addMB(p, "MHF_Ghast", true, "ghast");
 					}else if(args[0].equalsIgnoreCase("oakplanks")) {
 						addMB(p, "terryxu", false, "oakplanks");
 					}else if(args[0].equalsIgnoreCase("gamecube")) {
@@ -366,6 +370,8 @@ public class MicroblockCommand implements CommandExecutor {
 					p.sendMessage(ChatColor.RED + "Use /mb for a list of microblocks.");
 				}
 			}
+		}else {
+			sender.sendMessage(ChatColor.RED + "Only ingame players may use this command.");
 		}
 		
 		return false;
