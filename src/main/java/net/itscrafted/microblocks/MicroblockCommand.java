@@ -54,10 +54,11 @@ public class MicroblockCommand implements CommandExecutor {
 	/** Block List (Page Two) **/
 	String[] secondPage = {
 		ChatColor.GOLD + "workbench", ChatColor.GOLD + "orangewool", ChatColor.GOLD + "stonebrick", 
-		ChatColor.GOLD + "swskeleton", ChatColor.GOLD + "swzombie", ChatColor.GOLD + "lapis"
+		ChatColor.GOLD + "swskeleton", ChatColor.GOLD + "swzombie", ChatColor.GOLD + "lapis", 
+		ChatColor.GOLD + "goldblock"
 	};
 	
-	/** Array to String **/
+	/** Convert an array to a comma-seperated String. **/
 	public static String arrayToString(String array[]) {
 	    if (array.length == 0) return "";
 	    StringBuilder sb = new StringBuilder();
@@ -80,6 +81,7 @@ public class MicroblockCommand implements CommandExecutor {
 	
 	/** Add a Microblock to a player's inventory. **/
 	public void addMB(Player p, String headName, boolean deprecated, String microblock) {
+		
 		if(deprecated) {
 			p.sendMessage(ChatColor.RED + "This head is currently deprecated.");
 		}else {
@@ -97,7 +99,7 @@ public class MicroblockCommand implements CommandExecutor {
 		/** Get the Player **/
 		Player p = (Player) sender;
 		
-		/** /microblocks command **/
+		/** Microblocks Command **/
 		if(cmd.getLabel().equalsIgnoreCase("microblocks")) {
 			/** Permission Check **/
 			if(!p.hasPermission("mb.use")) {
@@ -105,14 +107,26 @@ public class MicroblockCommand implements CommandExecutor {
 			}else {
 				if(args.length == 0) {
 					/** Print out a comma separated list of microblocks (sorted), if the argument length is 0 **/
+					
 					Arrays.sort(blocks);
 					p.sendMessage(ChatColor.RED + "Microblocks (" + totalLength +  "):" + ChatColor.YELLOW + arrayToString(blocks));
 					p.sendMessage(ChatColor.RED + "Type /mb 2 for the next page.");
 					p.sendMessage(ChatColor.RED + "Usage: /mb <block>");
 				}else if(args.length == 1) {
-					/** Otherwise, assume the player is trying to spawn a microblock. **/
+					/** Otherwise, assume the player is trying to spawn a microblock, or get help. **/
 					
-					if(args[0].equalsIgnoreCase("apple")) {
+					if(args[0].equalsIgnoreCase("about") || args[0].equalsIgnoreCase("help")) {
+						p.sendMessage(ChatColor.GOLD + "Microblocks " + ChatColor.GRAY + "v" + mb.getDescription().getVersion() + ChatColor.GOLD + " by " + ChatColor.GRAY +
+								"CraftyCreator/itsCrafted" + ChatColor.GOLD + ".");
+						p.sendMessage(ChatColor.RED + "/mb for a list of blocks.");
+						p.sendMessage(ChatColor.RED + "/mb <block> to spawn a Microblock.");
+						p.sendMessage(ChatColor.RED + "/skull <player/self> to spawn a skull");
+					}else if(args[0].equalsIgnoreCase("2")) {
+							p.sendMessage("");
+							p.sendMessage(ChatColor.RED + "Microblocks (Page Two):" + ChatColor.YELLOW + arrayToString(secondPage));
+							p.sendMessage(ChatColor.RED + "Type /mb for the first page.");
+							p.sendMessage(ChatColor.RED + "Usage: /mb <block>");
+					}else if(args[0].equalsIgnoreCase("apple")) {
 						addMB(p, "MHF_Apple", false, "apple");
 					}else if(args[0].equalsIgnoreCase("arrowdown")) {
 						addMB(p, "MHF_ArrowDown", false, "arrowdown");
@@ -325,22 +339,10 @@ public class MicroblockCommand implements CommandExecutor {
 					}else if(args[0].equalsIgnoreCase("parrot")) {
 						addMB(p, "Luk3011", false, "parrot");
 						p.sendMessage(ChatColor.GOLD + "This microblock is " + ChatColor.GRAY + "diagonal" + ChatColor.GOLD + ".");
-					}else if(args[0].equalsIgnoreCase("about") || args[0].equalsIgnoreCase("help")) {
-						p.sendMessage(ChatColor.GOLD + "Microblocks " + ChatColor.GRAY + "v" + mb.getDescription().getVersion() + ChatColor.GOLD + " by " + ChatColor.GRAY +
-								"CraftyCreator/itsCrafted" + ChatColor.GOLD + ".");
-						p.sendMessage(ChatColor.RED + "/mb for a list of blocks.");
-						p.sendMessage(ChatColor.RED + "/mb <block> to spawn a Microblock.");
-						p.sendMessage(ChatColor.RED + "/skull <player/self> to spawn a skull");
 					}else if(args[0].equalsIgnoreCase("pokeball")) {
 						addMB(p, "Chuzard", false, "pokeball");
 					}else if(args[0].equalsIgnoreCase("cookie")) {
 						addMB(p, "QuadratCookie", false, "cookie");
-					}else if(args[0].equalsIgnoreCase("2")) {
-						p.sendMessage("");
-						p.sendMessage("");
-						p.sendMessage(ChatColor.RED + "Microblocks (Page Two):" + ChatColor.YELLOW + arrayToString(secondPage));
-						p.sendMessage(ChatColor.RED + "Type /mb for the first page.");
-						p.sendMessage(ChatColor.RED + "Usage: /mb <block>");
 					}else if(args[0].equalsIgnoreCase("workbench")) {
 						addMB(p, "Russellgoo97", false, "workbench");
 					}else if(args[0].equalsIgnoreCase("orangewool")) {
@@ -353,6 +355,8 @@ public class MicroblockCommand implements CommandExecutor {
 						addMB(p, "maximxc", false, "swzombie");
 					}else if(args[0].equalsIgnoreCase("lapis")) {
 						addMB(p, "Apa333", false, "lapis");
+					}else if(args[0].equalsIgnoreCase("goldblock")) {
+						addMB(p, "StackedGold", false, "goldblock");
 					}else {
 						p.sendMessage(ChatColor.RED + "Unknown microblock!");
 						p.sendMessage(ChatColor.RED + "Use /mb for a list of microblocks.");
