@@ -7,7 +7,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class Microblocks extends JavaPlugin {
 	
-	/** Reference the Command Class **/
+	/** Reference the Microblock Command Class **/
 	MicroblockCommand mbc;
 	
 	/** Create ArrayLists for the item lores **/
@@ -17,15 +17,17 @@ public class Microblocks extends JavaPlugin {
 	public void onEnable() {
 		/** Configuration **/
 		getConfig().options().copyDefaults(true);
-		getConfig().options().header("Enable 'safe-mode' to only allow 'safe' heads.");
+		getConfig().options().header("Enable 'safe-mode' to only allow 'safe' heads, which won't change.");
 		saveConfig();
 		
 		/** Informative Message(s) **/
-		getLogger().info("Please report any head mismatches to itsCrafted on BukkitDev/SpigotMC.");
+		getLogger().info("Please report any head mismatches to itsCrafted on SpigotMC, or InfiniteForge on "
+				+ "BukkitDev.");
 		
 		/** Register Commands **/
 		getCommand("microblocks").setExecutor(new MicroblockCommand(this));
 		getCommand("skull").setExecutor(new SkullCommand(this));
+		getCommand("givemb").setExecutor(new MBGiveCommand(this));
 		
 		/** Set Lore Contents **/
 		lore.add(ChatColor.GRAY + "Smaller than a block.");

@@ -126,6 +126,7 @@ public class MicroblockCommand implements CommandExecutor {
 						p.sendMessage(ChatColor.RED + "/mb <block>" + ChatColor.YELLOW + " to spawn a Microblock.");
 						p.sendMessage(ChatColor.RED + "/mb reload" + ChatColor.YELLOW + " to reload the configuration");
 						p.sendMessage(ChatColor.RED + "/skull <player/self>" + ChatColor.YELLOW + " to spawn a skull");
+						p.sendMessage(ChatColor.RED + "/givemb <player> <microblock>" + ChatColor.YELLOW + " to give Microblocks to others.");
 					}else if(args[0].equalsIgnoreCase("2")) {
 						p.sendMessage("");
 						p.sendMessage(ChatColor.RED + "Microblocks (Page Two):" + ChatColor.YELLOW + arrayToString(secondPage));

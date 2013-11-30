@@ -1,5 +1,5 @@
 name: Microblocks
-version: 1.8
+version: 1.9
 description: Extra building blocks!
 author: itsCrafted
 
@@ -12,3 +12,6 @@ commands:
   skull:
     description: Spawn a player skull.
     aliases: [head, playerhead, ph]
+  givemb:
+    description: Give another player a Microblock.
+    aliases: [gmb, mbgive, givemicroblock]
