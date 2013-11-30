@@ -49,21 +49,21 @@ public class MicroblockCommand implements CommandExecutor {
 			ChatColor.GOLD + "tnt2", ChatColor.GOLD + "tnt", ChatColor.GOLD + "toaster", ChatColor.GOLD + "toiletpaper",
 			ChatColor.GOLD + "tv", ChatColor.GOLD + "villager", ChatColor.GOLD + "ghast", ChatColor.GOLD + "tv2", 
 			ChatColor.GOLD + "troll", ChatColor.GOLD + "eye", ChatColor.GOLD + "pokeball", ChatColor.GOLD + "cookie",
+			ChatColor.GOLD + "leaves2"
 		};
 	
 	/** Block List (Page Two) **/
 	String[] secondPage = {
 		ChatColor.GOLD + "workbench", ChatColor.GOLD + "orangewool", ChatColor.GOLD + "stonebrick", 
 		ChatColor.GOLD + "swskeleton", ChatColor.GOLD + "swzombie", ChatColor.GOLD + "lapis", 
-		ChatColor.GOLD + "goldblock"
+		ChatColor.GOLD + "goldblock", ChatColor.GOLD + "fox", ChatColor.GOLD + "potato", ChatColor.GOLD + "cobblestone"
 	};
 	
 	/** Convert an array to a comma-seperated String. **/
 	public static String arrayToString(String array[]) {
 	    if (array.length == 0) return "";
 	    StringBuilder sb = new StringBuilder();
-	    for (int i = 0; i < array.length; ++i)
-	    {
+	    for (int i = 0; i < array.length; ++i) {
 	        sb.append(", ").append(array[i]).append("");
 	    }
 	    return sb.substring(1);
@@ -361,6 +361,14 @@ public class MicroblockCommand implements CommandExecutor {
 						addMB(p, "Apa333", false, "lapis");
 					}else if(args[0].equalsIgnoreCase("goldblock")) {
 						addMB(p, "StackedGold", false, "goldblock");
+					}else if(args[0].equalsIgnoreCase("fox")) {
+						addMB(p, "hugge75", false, "fox");
+					}else if(args[0].equalsIgnoreCase("potato")) {
+						addMB(p, "CraftPotato13", false, "potato");
+					}else if(args[0].equalsIgnoreCase("leaves2")) {
+						addMB(p, "half_bit", false, "leaves2");
+					}else if(args[0].equalsIgnoreCase("cobblestone")) {
+						addMB(p, "_Rience", false, "cobblestone");
 					}else {
 						p.sendMessage(ChatColor.RED + "Unknown microblock!");
 						p.sendMessage(ChatColor.RED + "Use /mb for a list of microblocks.");
