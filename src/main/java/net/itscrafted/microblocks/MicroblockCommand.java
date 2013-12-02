@@ -1,8 +1,6 @@
 package net.itscrafted.microblocks;
 
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -15,19 +13,10 @@ import org.bukkit.inventory.meta.SkullMeta;
 
 public class MicroblockCommand implements CommandExecutor {
 	
-	Map<String, Boolean> hm = new HashMap<String, Boolean>();
-	
 	/** Reference the main class **/
 	private Microblocks mb;
 	public MicroblockCommand(Microblocks mb) {
 		this.mb = mb;
-	}
-	
-	/** Special Player Items **/
-	public void specItem(Player p) {
-		if(p != null) {
-			
-		}
 	}
 	
 	/** Block List **/
