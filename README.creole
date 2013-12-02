@@ -8,6 +8,4 @@ Maven 3 is required to compile Microblocks.
 
 === Commands and Permissions
 
-Commands:
-/mb - Main Command - mb.use
-/skull - Spawn Player Skulls - mb.skull
+Commands and Permissions can be found on the BukkitDev page at http://dev.bukkit.org/bukkit-plugins/microblocks/.
