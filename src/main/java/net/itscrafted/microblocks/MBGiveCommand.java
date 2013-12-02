@@ -511,10 +511,6 @@ public class MBGiveCommand implements CommandExecutor {
 							addMB(reciever, "maximxc", false, "swzombie");
 							p.sendMessage(ChatColor.GOLD + "You have given " + ChatColor.GRAY + args[0] + ChatColor.GOLD
 									+ " the " + ChatColor.GRAY + args[1] + ChatColor.GOLD + " microblock.");
-						}else if(args[1].equalsIgnoreCase("lapis")) {
-							addMB(reciever, "Apa333", false, "lapis");
-							p.sendMessage(ChatColor.GOLD + "You have given " + ChatColor.GRAY + args[0] + ChatColor.GOLD
-									+ " the " + ChatColor.GRAY + args[1] + ChatColor.GOLD + " microblock.");
 						}else if(args[1].equalsIgnoreCase("goldblock")) {
 							addMB(reciever, "StackedGold", false, "goldblock");
 							p.sendMessage(ChatColor.GOLD + "You have given " + ChatColor.GRAY + args[0] + ChatColor.GOLD
