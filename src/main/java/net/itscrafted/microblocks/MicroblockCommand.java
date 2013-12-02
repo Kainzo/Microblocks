@@ -55,7 +55,7 @@ public class MicroblockCommand implements CommandExecutor {
 	/** Block List (Page Two) **/
 	String[] secondPage = {
 		ChatColor.GOLD + "workbench", ChatColor.GOLD + "orangewool", ChatColor.GOLD + "stonebrick", 
-		ChatColor.GOLD + "swskeleton", ChatColor.GOLD + "swzombie", ChatColor.GOLD + "lapis", 
+		ChatColor.GOLD + "swskeleton", ChatColor.GOLD + "swzombie",
 		ChatColor.GOLD + "goldblock", ChatColor.GOLD + "fox", ChatColor.GOLD + "potato", ChatColor.GOLD + "cobblestone",
 		ChatColor.GOLD + "water", ChatColor.GOLD + "noteblock", ChatColor.GOLD + "brick"
 	};
@@ -359,8 +359,6 @@ public class MicroblockCommand implements CommandExecutor {
 						addMB(p, "lesto123", false, "swskeleton");
 					}else if(args[0].equalsIgnoreCase("swzombie")) {
 						addMB(p, "maximxc", false, "swzombie");
-					}else if(args[0].equalsIgnoreCase("lapis")) {
-						addMB(p, "Apa333", false, "lapis");
 					}else if(args[0].equalsIgnoreCase("goldblock")) {
 						addMB(p, "StackedGold", false, "goldblock");
 					}else if(args[0].equalsIgnoreCase("fox")) {
