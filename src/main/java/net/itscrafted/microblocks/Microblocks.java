@@ -14,7 +14,7 @@ public class Microblocks extends JavaPlugin {
 	ArrayList<String> lore = new ArrayList<String>();
 	ArrayList<String> skullLore = new ArrayList<String>();
 	
-	public void onEnable() {
+	public void onEnable() {	
 		/** Configuration **/
 		getConfig().options().copyDefaults(true);
 		getConfig().options().header("Enable 'safe-mode' to only allow 'safe' heads, which won't change.");
@@ -36,4 +36,5 @@ public class Microblocks extends JavaPlugin {
 		lore.add(ChatColor.GRAY + "Smaller than a block.");
 		skullLore.add(ChatColor.GRAY + "Place it, break it, wear it as a hat!");
 	}
+	
 }

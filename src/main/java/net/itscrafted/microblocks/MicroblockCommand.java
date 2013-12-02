@@ -1,6 +1,8 @@
 package net.itscrafted.microblocks;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -13,10 +15,19 @@ import org.bukkit.inventory.meta.SkullMeta;
 
 public class MicroblockCommand implements CommandExecutor {
 	
+	Map<String, Boolean> hm = new HashMap<String, Boolean>();
+	
 	/** Reference the main class **/
 	private Microblocks mb;
 	public MicroblockCommand(Microblocks mb) {
 		this.mb = mb;
+	}
+	
+	/** Special Player Items **/
+	public void specItem(Player p) {
+		if(p != null) {
+			
+		}
 	}
 	
 	/** Block List **/
@@ -55,7 +66,7 @@ public class MicroblockCommand implements CommandExecutor {
 	/** Block List (Page Two) **/
 	String[] secondPage = {
 		ChatColor.GOLD + "workbench", ChatColor.GOLD + "orangewool", ChatColor.GOLD + "stonebrick", 
-		ChatColor.GOLD + "swskeleton", ChatColor.GOLD + "swzombie",
+		ChatColor.GOLD + "swskeleton", ChatColor.GOLD + "swzombie", 
 		ChatColor.GOLD + "goldblock", ChatColor.GOLD + "fox", ChatColor.GOLD + "potato", ChatColor.GOLD + "cobblestone",
 		ChatColor.GOLD + "water", ChatColor.GOLD + "noteblock", ChatColor.GOLD + "brick"
 	};
@@ -153,7 +164,7 @@ public class MicroblockCommand implements CommandExecutor {
 					}else if(args[0].equalsIgnoreCase("blaze")) {
 						addMB(p, "MHF_Blaze", true, "blaze");
 					}else if(args[0].equalsIgnoreCase("bookshelf")) {
-						addMB(p, "BowAimbot", false, "bookshelf");
+						addMB(p, "BowAimbot", true, "bookshelf");
 					}else if(args[0].equalsIgnoreCase("ice")) {
 						addMB(p, "icytouch", false, "ice");
 					}else if(args[0].equalsIgnoreCase("ironchest")) {
@@ -161,9 +172,9 @@ public class MicroblockCommand implements CommandExecutor {
 					}else if(args[0].equalsIgnoreCase("furnace")) {
 						addMB(p, "NegativeZeroTV", false, "furnace");
 					}else if(args[0].equalsIgnoreCase("spawner")) {
-						addMB(p, "GAMEZENMASTER", false, "spawner");
+						addMB(p, "GAMEZENMASTER", true, "spawner");
 					}else if(args[0].equalsIgnoreCase("qcube")) {
-						addMB(p, "jarrettgabe", false, "qcube");
+						addMB(p, "jarrettgabe", true, "qcube");
 					}else if(args[0].equalsIgnoreCase("cactus")) {
 						addMB(p, "MHF_Cactus", true, "cactus");
 					}else if(args[0].equalsIgnoreCase("cake")) {
@@ -209,9 +220,9 @@ public class MicroblockCommand implements CommandExecutor {
 					}else if(args[0].equalsIgnoreCase("dispenser")) {
 						addMB(p, "scemm", false, "dispenser");
 					}else if(args[0].equalsIgnoreCase("emeraldore")) {
-						addMB(p, "Tereneckla", false, "emeraldore");
+						addMB(p, "Tereneckla", true, "emeraldore");
 					}else if(args[0].equalsIgnoreCase("enderdragon")) {
-						addMB(p, "KingEndermen", false, "enderdragon");
+						addMB(p, "KingEndermen", true, "enderdragon");
 					}else if(args[0].equalsIgnoreCase("enderman")) {
 						addMB(p, "MHF_Enderman", true, "enderman");
 					}else if(args[0].equalsIgnoreCase("exclamation")) {
@@ -221,7 +232,7 @@ public class MicroblockCommand implements CommandExecutor {
 					}else if(args[0].equalsIgnoreCase("grass")) {
 						addMB(p, "MoulaTime", false, "grass");
 					}else if(args[0].equalsIgnoreCase("haybale")) {
-						addMB(p, "Bendablob", false, "haybale");
+						addMB(p, "Bendablob", true, "haybale");
 					}else if(args[0].equalsIgnoreCase("headlight")) {
 						addMB(p, "Toby_The_Coder", false, "headlight");
 					}else if(args[0].equalsIgnoreCase("herobrine")) {
@@ -233,7 +244,7 @@ public class MicroblockCommand implements CommandExecutor {
 					}else if(args[0].equalsIgnoreCase("jukebox")) {
 						addMB(p, "C418", true, "jukebox");
 					}else if(args[0].equalsIgnoreCase("lampon")) {
-						addMB(p, "AutoSoup", false, "lampon");
+						addMB(p, "AutoSoup", true, "lampon");
 					}else if(args[0].equalsIgnoreCase("lavaslime")) {
 						addMB(p, "MHF_LavaSlime", true, "lavaslime");
 					}else if(args[0].equalsIgnoreCase("leaves")) {
@@ -267,7 +278,7 @@ public class MicroblockCommand implements CommandExecutor {
 					}else if(args[0].equalsIgnoreCase("orange")) {
 						addMB(p, "hi1232", false, "orange");
 					}else if(args[0].equalsIgnoreCase("eyeofender")) {
-						addMB(p, "Edna_I", false, "eyeofender");
+						addMB(p, "Edna_I", true, "eyeofender");
 					}else if(args[0].equalsIgnoreCase("pigzombie")) {
 						addMB(p, "MHF_PigZombie", true, "pigzombie");
 					}else if(args[0].equalsIgnoreCase("pig")) {
@@ -275,7 +286,7 @@ public class MicroblockCommand implements CommandExecutor {
 					}else if(args[0].equalsIgnoreCase("piston")) {
 						addMB(p, "JL2579", false, "piston");
 					}else if(args[0].equalsIgnoreCase("podzol")) {
-						addMB(p, "PhasePvP", false, "podzol");
+						addMB(p, "PhasePvP", true, "podzol");
 					}else if(args[0].equalsIgnoreCase("popcorn")) {
 						addMB(p, "ZachWarnerHD", false, "popcorn");
 					}else if(args[0].equalsIgnoreCase("present")) {
@@ -285,13 +296,13 @@ public class MicroblockCommand implements CommandExecutor {
 					}else if(args[0].equalsIgnoreCase("pumpkin")) {
 						addMB(p, "MHF_Pumpkin", true, "pumpkin");
 					}else if(args[0].equalsIgnoreCase("quartzblock")) {
-						addMB(p, "bubbadawg01", false, "quartzblock");
+						addMB(p, "bubbadawg01", true, "quartzblock");
 					}else if(args[0].equalsIgnoreCase("question")) {
 						addMB(p, "MHF_Question", true, "question");
 					}else if(args[0].equalsIgnoreCase("radio")) {
-						addMB(p, "uioz", false, "radio");
+						addMB(p, "uioz", true, "radio");
 					}else if(args[0].equalsIgnoreCase("redsand")) {
-						addMB(p, "OmniSulfur", false, "redsand");
+						addMB(p, "OmniSulfur", true, "redsand");
 					}else if(args[0].equalsIgnoreCase("redstoneore")) {
 						addMB(p, "annayirb", false, "redstoneore");
 					}else if(args[0].equalsIgnoreCase("rubixcube")) {
@@ -368,7 +379,7 @@ public class MicroblockCommand implements CommandExecutor {
 					}else if(args[0].equalsIgnoreCase("leaves2")) {
 						addMB(p, "half_bit", false, "leaves2");
 					}else if(args[0].equalsIgnoreCase("cobblestone")) {
-						addMB(p, "_Rience", false, "cobblestone");
+						addMB(p, "_Rience", true, "cobblestone");
 					}else if(args[0].equalsIgnoreCase("water")) {
 						addMB(p, "emack0714", false, "water");
 					}else if(args[0].equalsIgnoreCase("noteblock")) {
