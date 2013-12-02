@@ -18,56 +18,6 @@ public class MBGiveCommand implements CommandExecutor {
 		this.mb = mb;
 	}
 	
-	/** Block List **/
-	String[] blocks =
-		{
-			ChatColor.GOLD + "apple", ChatColor.GOLD + "arrowdown", ChatColor.GOLD + "arrowleft", ChatColor.GOLD + "arrowright",
-			ChatColor.GOLD + "arrowup", ChatColor.GOLD + "bacon", ChatColor.GOLD + "enderchest", ChatColor.GOLD + "monitor",
-			ChatColor.GOLD + "blaze", ChatColor.GOLD + "bookshelf", ChatColor.GOLD + "ice", ChatColor.GOLD + "ironchest", 
-			ChatColor.GOLD + "furnace", ChatColor.GOLD + "spawner", ChatColor.GOLD + "qcube", ChatColor.GOLD + "cactus",
-			ChatColor.GOLD + "cake", ChatColor.GOLD + "camera", ChatColor.GOLD + "cavespider", ChatColor.GOLD + "horse",
-			ChatColor.GOLD + "cherry", ChatColor.GOLD + "chest", ChatColor.GOLD + "chicken", ChatColor.GOLD + "clock",
-			ChatColor.GOLD + "coconut", ChatColor.GOLD + "companioncube", ChatColor.GOLD + "cow", ChatColor.GOLD + "derpysnow",
-			ChatColor.GOLD + "diamondblock", ChatColor.GOLD + "diamondore", ChatColor.GOLD + "glowstone", 
-			ChatColor.GOLD + "beachball", ChatColor.GOLD + "dicewhite", ChatColor.GOLD + "dicered", ChatColor.GOLD + "dirt", 
-			ChatColor.GOLD + "dispenser", ChatColor.GOLD + "diceblack", ChatColor.GOLD +  "oakplanks", ChatColor.GOLD +  "gamecube",
-			ChatColor.GOLD + "redstoneblock", ChatColor.GOLD + "emeraldore", ChatColor.GOLD + "enderdragon", 
-			ChatColor.GOLD + "enderman", ChatColor.GOLD + "exclamation", ChatColor.GOLD + "golem",
-			ChatColor.GOLD + "grass", ChatColor.GOLD + "haybale", ChatColor.GOLD + "headlight", ChatColor.GOLD + "herobrine",
-			ChatColor.GOLD + "ironblock", ChatColor.GOLD + "witch", ChatColor.GOLD + "jukebox", ChatColor.GOLD + "lampon",
-			ChatColor.GOLD + "lavaslime", ChatColor.GOLD + "leaves", ChatColor.GOLD + "lemon", ChatColor.GOLD + "lime",
-			ChatColor.GOLD + "machine", ChatColor.GOLD + "melon", ChatColor.GOLD + "mossycobblestone", ChatColor.GOLD + "muffin", 
-			ChatColor.GOLD + "mushroomcow", ChatColor.GOLD + "netherrack", ChatColor.GOLD + "notexture", ChatColor.GOLD + "oaklog2", 
-			ChatColor.GOLD + "oaklog", ChatColor.GOLD + "obsidian", ChatColor.GOLD + "ocelot", ChatColor.GOLD + "orange", 
-			ChatColor.GOLD + "eyeofender", ChatColor.GOLD + "pigzombie", ChatColor.GOLD + "pig", ChatColor.GOLD + "piston", ChatColor.GOLD + "podzol",
-			ChatColor.GOLD + "popcorn", ChatColor.GOLD + "present", ChatColor.GOLD + "pumpkinface",
-			ChatColor.GOLD + "pumpkin", ChatColor.GOLD + "quartzblock", ChatColor.GOLD + "question", ChatColor.GOLD + "radio", 
-			ChatColor.GOLD + "redsand", ChatColor.GOLD + "redstoneore", ChatColor.GOLD + "rubixcube2", ChatColor.GOLD + "rubixcube", ChatColor.GOLD + "sand",
-			ChatColor.GOLD + "sheep", ChatColor.GOLD + "slime", ChatColor.GOLD + "speaker", ChatColor.GOLD + "spider", ChatColor.GOLD + "sponge",
-			ChatColor.GOLD + "squid", ChatColor.GOLD + "stickypiston", ChatColor.GOLD + "stone", ChatColor.GOLD + "taco",
-			ChatColor.GOLD + "tnt2", ChatColor.GOLD + "tnt", ChatColor.GOLD + "toaster", ChatColor.GOLD + "toiletpaper",
-			ChatColor.GOLD + "tv", ChatColor.GOLD + "villager", ChatColor.GOLD + "ghast", ChatColor.GOLD + "tv2", 
-			ChatColor.GOLD + "troll", ChatColor.GOLD + "eye", ChatColor.GOLD + "pokeball", ChatColor.GOLD + "cookie",
-			ChatColor.GOLD + "leaves2"
-		};
-	
-	/** Block List (Page Two) **/
-	String[] secondPage = {
-		ChatColor.GOLD + "workbench", ChatColor.GOLD + "orangewool", ChatColor.GOLD + "stonebrick", 
-		ChatColor.GOLD + "swskeleton", ChatColor.GOLD + "swzombie", ChatColor.GOLD + "lapis", 
-		ChatColor.GOLD + "goldblock", ChatColor.GOLD + "fox", ChatColor.GOLD + "potato", ChatColor.GOLD + "cobblestone"
-	};
-	
-	/** Convert an array to a comma-seperated String. **/
-	public static String arrayToString(String array[]) {
-	    if (array.length == 0) return "";
-	    StringBuilder sb = new StringBuilder();
-	    for (int i = 0; i < array.length; ++i) {
-	        sb.append(", ").append(array[i]).append("");
-	    }
-	    return sb.substring(1);
-	}
-	
 	/** Quick method for adding heads. **/
 	public ItemStack mblock(ItemStack item, String nick, String microblock) {
         SkullMeta meta = (SkullMeta) item.getItemMeta();
@@ -92,9 +42,6 @@ public class MBGiveCommand implements CommandExecutor {
 						+ ChatColor.GOLD + " microblock.");
 		}
 	}
-	
-	/** Get the absolute length of both pages, and store it as an int. **/
-	int totalLength = blocks.length + secondPage.length;
 	
 	/** Command **/
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
@@ -586,6 +533,18 @@ public class MBGiveCommand implements CommandExecutor {
 									+ " the " + ChatColor.GRAY + args[1] + ChatColor.GOLD + " microblock.");
 						}else if(args[1].equalsIgnoreCase("cobblestone")) {
 							addMB(reciever, "_Rience", false, "cobblestone");
+							p.sendMessage(ChatColor.GOLD + "You have given " + ChatColor.GRAY + args[0] + ChatColor.GOLD
+									+ " the " + ChatColor.GRAY + args[1] + ChatColor.GOLD + " microblock.");
+						}else if(args[0].equalsIgnoreCase("water")) {
+							addMB(reciever, "emack0714", false, "water");
+							p.sendMessage(ChatColor.GOLD + "You have given " + ChatColor.GRAY + args[0] + ChatColor.GOLD
+									+ " the " + ChatColor.GRAY + args[1] + ChatColor.GOLD + " microblock.");
+						}else if(args[0].equalsIgnoreCase("noteblock")) {
+							addMB(reciever, "PixelJuke", false, "noteblock");
+							p.sendMessage(ChatColor.GOLD + "You have given " + ChatColor.GRAY + args[0] + ChatColor.GOLD
+									+ " the " + ChatColor.GRAY + args[1] + ChatColor.GOLD + " microblock.");
+						}else if(args[0].equalsIgnoreCase("brick")) {
+							addMB(reciever, "BrickInTheHead", false, "brick");
 							p.sendMessage(ChatColor.GOLD + "You have given " + ChatColor.GRAY + args[0] + ChatColor.GOLD
 									+ " the " + ChatColor.GRAY + args[1] + ChatColor.GOLD + " microblock.");
 						}else {

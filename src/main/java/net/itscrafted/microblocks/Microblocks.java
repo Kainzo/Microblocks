@@ -20,9 +20,12 @@ public class Microblocks extends JavaPlugin {
 		getConfig().options().header("Enable 'safe-mode' to only allow 'safe' heads, which won't change.");
 		saveConfig();
 		
-		/** Informative Message(s) **/
-		getLogger().info("Please report any head mismatches to itsCrafted on SpigotMC, or InfiniteForge on "
+		/** Informative Messages **/
+		getLogger().info("Please report any head mismatches to itsCrafted on SpigotMC, or infiniteForge on "
 				+ "BukkitDev.");
+		
+		getLogger().info("The current plugin version is " + getDescription().getVersion() + ". Please use this"
+				+ " when sending reports of mismatched heads and such.");
 		
 		/** Register Commands **/
 		getCommand("microblocks").setExecutor(new MicroblockCommand(this));

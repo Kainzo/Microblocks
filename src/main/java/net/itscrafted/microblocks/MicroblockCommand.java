@@ -23,7 +23,7 @@ public class MicroblockCommand implements CommandExecutor {
 	String[] blocks =
 		{
 			ChatColor.GOLD + "apple", ChatColor.GOLD + "arrowdown", ChatColor.GOLD + "arrowleft", ChatColor.GOLD + "arrowright",
-			ChatColor.GOLD + "arrowup", ChatColor.GOLD + "bacon", ChatColor.GOLD + "enderchest", ChatColor.GOLD + "monitor",
+			ChatColor.GOLD + "arrowup", ChatColor.GOLD + "enderchest", ChatColor.GOLD + "monitor",
 			ChatColor.GOLD + "blaze", ChatColor.GOLD + "bookshelf", ChatColor.GOLD + "ice", ChatColor.GOLD + "ironchest", 
 			ChatColor.GOLD + "furnace", ChatColor.GOLD + "spawner", ChatColor.GOLD + "qcube", ChatColor.GOLD + "cactus",
 			ChatColor.GOLD + "cake", ChatColor.GOLD + "camera", ChatColor.GOLD + "cavespider", ChatColor.GOLD + "horse",
@@ -56,7 +56,8 @@ public class MicroblockCommand implements CommandExecutor {
 	String[] secondPage = {
 		ChatColor.GOLD + "workbench", ChatColor.GOLD + "orangewool", ChatColor.GOLD + "stonebrick", 
 		ChatColor.GOLD + "swskeleton", ChatColor.GOLD + "swzombie", ChatColor.GOLD + "lapis", 
-		ChatColor.GOLD + "goldblock", ChatColor.GOLD + "fox", ChatColor.GOLD + "potato", ChatColor.GOLD + "cobblestone"
+		ChatColor.GOLD + "goldblock", ChatColor.GOLD + "fox", ChatColor.GOLD + "potato", ChatColor.GOLD + "cobblestone",
+		ChatColor.GOLD + "water", ChatColor.GOLD + "noteblock", ChatColor.GOLD + "brick"
 	};
 	
 	/** Convert an array to a comma-seperated String. **/
@@ -370,6 +371,12 @@ public class MicroblockCommand implements CommandExecutor {
 						addMB(p, "half_bit", false, "leaves2");
 					}else if(args[0].equalsIgnoreCase("cobblestone")) {
 						addMB(p, "_Rience", false, "cobblestone");
+					}else if(args[0].equalsIgnoreCase("water")) {
+						addMB(p, "emack0714", false, "water");
+					}else if(args[0].equalsIgnoreCase("noteblock")) {
+						addMB(p, "PixelJuke", false, "noteblock");
+					}else if(args[0].equalsIgnoreCase("brick")) {
+						addMB(p, "BrickInTheHead", false, "brick");
 					}else {
 						p.sendMessage(ChatColor.RED + "Unknown microblock!");
 						p.sendMessage(ChatColor.RED + "Use /mb for a list of microblocks.");
