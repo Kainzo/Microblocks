@@ -2,7 +2,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>net.itscrafted</groupId>
     <artifactId>Microblocks</artifactId>
-    <version>1.6.2</version>
+    <version>1.9</version>
     <name>Microblocks</name>
     <url>https://github.com/itsCrafted/Microblocks</url>
     <issueManagement>
