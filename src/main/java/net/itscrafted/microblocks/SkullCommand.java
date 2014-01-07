@@ -19,18 +19,18 @@ public class SkullCommand implements CommandExecutor {
 	
 	/** Quick method for adding heads. **/
 	public ItemStack mblock(ItemStack item, String nick) {
-        SkullMeta meta = (SkullMeta) item.getItemMeta();
-        /** Nice, correct grammar for player names that end in 's' **/
-        if(nick.endsWith("s") || nick.endsWith("S")) {
-        	meta.setDisplayName(ChatColor.GOLD + nick + ChatColor.WHITE + "' Head");
-        }else {
-        	 meta.setDisplayName(ChatColor.GOLD + nick + ChatColor.WHITE + "'s Head");
-        }
-        meta.setOwner(nick);
-        meta.setLore(mb.skullLore);
-        item.setItemMeta(meta);
-        return item;
-    }
+		SkullMeta meta = (SkullMeta) item.getItemMeta();
+		/** Nice, correct grammar for player names that end in 's' **/
+		if(nick.endsWith("s") || nick.endsWith("S")) {
+			meta.setDisplayName(ChatColor.GOLD + nick + ChatColor.WHITE + "' Head");
+		}else {
+			meta.setDisplayName(ChatColor.GOLD + nick + ChatColor.WHITE + "'s Head");
+		}
+		meta.setOwner(nick);
+		meta.setLore(mb.skullLore);
+		item.setItemMeta(meta);
+		return item;
+	}
 	
 	/** Command Method **/
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
