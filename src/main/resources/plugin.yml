@@ -11,7 +11,7 @@ commands:
     aliases: [mb, miniblocks, micro]
   skull:
     description: Spawn a player skull.
-    aliases: [head, playerhead, ph]
+    aliases: [head, playerhead]
   givemb:
     description: Give another player a Microblock.
     aliases: [gmb, mbgive, givemicroblock]
