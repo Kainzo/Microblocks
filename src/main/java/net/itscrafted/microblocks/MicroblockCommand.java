@@ -54,7 +54,7 @@ public class MicroblockCommand implements CommandExecutor, TabCompleter {
 		SkullMeta meta = (SkullMeta) item.getItemMeta();
 		meta.setDisplayName(ChatColor.GOLD + "Microblock: " + ChatColor.WHITE + microblock);
 		meta.setOwner(nick);
-		meta.setLore(mb.lore);
+		meta.setLore(Arrays.asList(ChatColor.GRAY + "Smaller than a block."));
 		item.setItemMeta(meta);
 		return item;
 	}

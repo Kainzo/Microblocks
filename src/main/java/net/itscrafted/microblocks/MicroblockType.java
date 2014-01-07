@@ -13,6 +13,7 @@ public class MicroblockType {
 		this.playerName = playerName;
 		this.safe = safe;
 	}
+	
 	public String getBlockName() {
 		return blockName;
 	}
@@ -32,6 +33,7 @@ public class MicroblockType {
 		BLOCK_MAP.put(blockName, mb);
 		PLAYER_MAP.put(playerName, mb);
 	}
+	
 	static {
 		add("apple", "MHF_Apple", true);
 		add("arrowdown", "MHF_ArrowDown", true);

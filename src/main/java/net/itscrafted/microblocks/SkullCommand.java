@@ -1,5 +1,7 @@
 package net.itscrafted.microblocks;
 
+import java.util.Arrays;
+
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
@@ -12,6 +14,7 @@ import org.bukkit.inventory.meta.SkullMeta;
 public class SkullCommand implements CommandExecutor {
 	
 	/** Reference the main class. **/
+	@SuppressWarnings("unused")
 	private Microblocks mb;
 	public SkullCommand(Microblocks mb) {
 		this.mb = mb;
@@ -27,7 +30,7 @@ public class SkullCommand implements CommandExecutor {
 			meta.setDisplayName(ChatColor.GOLD + nick + ChatColor.WHITE + "'s Head");
 		}
 		meta.setOwner(nick);
-		meta.setLore(mb.skullLore);
+		meta.setLore(Arrays.asList(ChatColor.GRAY + "Place it, break it, wear it as a hat!"));
 		item.setItemMeta(meta);
 		return item;
 	}

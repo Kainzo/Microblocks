@@ -1,6 +1,7 @@
 package net.itscrafted.microblocks;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -28,7 +29,7 @@ public class MBGiveCommand implements CommandExecutor, TabCompleter {
 		SkullMeta meta = (SkullMeta) item.getItemMeta();
 		meta.setDisplayName(ChatColor.GOLD + "Microblock: " + ChatColor.WHITE + microblock);
 		meta.setOwner(nick);
-		meta.setLore(mb.lore);
+		meta.setLore(Arrays.asList(ChatColor.GRAY + "Smaller than a block."));
 		item.setItemMeta(meta);
 		return item;
 	}

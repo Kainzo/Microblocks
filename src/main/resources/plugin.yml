@@ -1,6 +1,6 @@
 name: Microblocks
-version: 1.9
-description: Extra building blocks!
+version: 2.0
+description: Extra building blocks and player heads.
 author: itsCrafted
 
 main: net.itscrafted.microblocks.Microblocks
