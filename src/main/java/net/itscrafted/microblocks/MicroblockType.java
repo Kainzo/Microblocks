@@ -45,7 +45,7 @@ public class MicroblockType {
 		add("ice", "icytouch", false);
 		add("ironchest", "godman21", false);
 		add("furnace", "NegativeZeroTV", false);
-		add("spawner", "GAMEZENMASTER", true);
+		//add("spawner", "GAMEZENMASTER", true);
 		add("qcube", "jarrettgabe", true);
 		add("cactus", "MHF_Cactus", true);
 		add("cake", "MHF_Cake", true);
@@ -125,7 +125,7 @@ public class MicroblockType {
 		add("taco", "Crunchy_Taco34", false);
 		add("tnt2", "MHF_TNT2", true);
 		add("tnt", "MHF_TNT", true);
-		add("toaster", "pologobbyboy", false);
+		//add("toaster", "pologobbyboy", false);
 		add("toiletpaper", "Ethegj", false);
 		add("tv", "Metroidling", false);
 		add("villager", "MHF_Villager", true);
@@ -139,11 +139,11 @@ public class MicroblockType {
 		add("parrot", "Luk3011", false);
 		add("pokeball", "Chuzard", false);
 		add("cookie", "QuadratCookie", false);
-		add("workbench", "Russellgoo97", false);
+		//add("workbench", "Russellgoo97", false);
 		add("orangewool", "titou36", false);
 		add("stonebrick", "Cakers", false);
 		add("swskeleton", "lesto123", false);
-		add("swzombie", "maximxc", false);
+		//add("swzombie", "maximxc", false);
 		add("goldblock", "StackedGold", false);
 		add("fox", "hugge75", false);
 		add("potato", "CraftPotato13", false);
