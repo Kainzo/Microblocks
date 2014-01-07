@@ -1,84 +1,63 @@
 package net.itscrafted.microblocks;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
 
-public class MicroblockCommand implements CommandExecutor {
+public class MicroblockCommand implements CommandExecutor, TabCompleter {
+
+	String[] blocks;
+	String[] secondPage;
+	int totalLength;
 	
 	/** Reference the main class **/
 	private Microblocks mb;
 	public MicroblockCommand(Microblocks mb) {
 		this.mb = mb;
+
+		/** Block List **/
+		blocks = MicroblockType.BLOCK_MAP.keySet().toArray(new String[0]);
+
+		/** Get the absolute length of both pages, and store it as an int. **/
+		totalLength = blocks.length;
+		Arrays.sort(blocks);
+
+		/** Block List (Page Two) **/
+		secondPage = Arrays.copyOfRange(blocks, (totalLength/2) + 1, totalLength);
+		blocks = Arrays.copyOfRange(blocks, 0, totalLength/2);
+		
 	}
-	
-	/** Block List **/
-	String[] blocks =
-		{
-			ChatColor.GOLD + "apple", ChatColor.GOLD + "arrowdown", ChatColor.GOLD + "arrowleft", ChatColor.GOLD + "arrowright",
-			ChatColor.GOLD + "arrowup", ChatColor.GOLD + "enderchest", ChatColor.GOLD + "monitor",
-			ChatColor.GOLD + "blaze", ChatColor.GOLD + "bookshelf", ChatColor.GOLD + "ice", ChatColor.GOLD + "ironchest", 
-			ChatColor.GOLD + "furnace", ChatColor.GOLD + "spawner", ChatColor.GOLD + "qcube", ChatColor.GOLD + "cactus",
-			ChatColor.GOLD + "cake", ChatColor.GOLD + "camera", ChatColor.GOLD + "cavespider", ChatColor.GOLD + "horse",
-			ChatColor.GOLD + "cherry", ChatColor.GOLD + "chest", ChatColor.GOLD + "chicken", ChatColor.GOLD + "clock",
-			ChatColor.GOLD + "coconut", ChatColor.GOLD + "companioncube", ChatColor.GOLD + "cow", ChatColor.GOLD + "derpysnow",
-			ChatColor.GOLD + "diamondblock", ChatColor.GOLD + "diamondore", ChatColor.GOLD + "glowstone", 
-			ChatColor.GOLD + "beachball", ChatColor.GOLD + "dicewhite", ChatColor.GOLD + "dicered", ChatColor.GOLD + "dirt", 
-			ChatColor.GOLD + "dispenser", ChatColor.GOLD + "diceblack", ChatColor.GOLD +  "oakplanks", ChatColor.GOLD +  "gamecube",
-			ChatColor.GOLD + "redstoneblock", ChatColor.GOLD + "emeraldore", ChatColor.GOLD + "enderdragon", 
-			ChatColor.GOLD + "enderman", ChatColor.GOLD + "exclamation", ChatColor.GOLD + "golem",
-			ChatColor.GOLD + "grass", ChatColor.GOLD + "haybale", ChatColor.GOLD + "headlight", ChatColor.GOLD + "herobrine",
-			ChatColor.GOLD + "ironblock", ChatColor.GOLD + "witch", ChatColor.GOLD + "jukebox", ChatColor.GOLD + "lampon",
-			ChatColor.GOLD + "lavaslime", ChatColor.GOLD + "leaves", ChatColor.GOLD + "lemon", ChatColor.GOLD + "lime",
-			ChatColor.GOLD + "machine", ChatColor.GOLD + "melon", ChatColor.GOLD + "mossycobblestone", ChatColor.GOLD + "muffin", 
-			ChatColor.GOLD + "mushroomcow", ChatColor.GOLD + "netherrack", ChatColor.GOLD + "notexture", ChatColor.GOLD + "oaklog2", 
-			ChatColor.GOLD + "oaklog", ChatColor.GOLD + "obsidian", ChatColor.GOLD + "ocelot", ChatColor.GOLD + "orange", 
-			ChatColor.GOLD + "eyeofender", ChatColor.GOLD + "pigzombie", ChatColor.GOLD + "pig", ChatColor.GOLD + "piston", ChatColor.GOLD + "podzol",
-			ChatColor.GOLD + "popcorn", ChatColor.GOLD + "present", ChatColor.GOLD + "pumpkinface",
-			ChatColor.GOLD + "pumpkin", ChatColor.GOLD + "quartzblock", ChatColor.GOLD + "question", ChatColor.GOLD + "radio", 
-			ChatColor.GOLD + "redsand", ChatColor.GOLD + "redstoneore", ChatColor.GOLD + "rubixcube2", ChatColor.GOLD + "rubixcube", ChatColor.GOLD + "sand",
-			ChatColor.GOLD + "sheep", ChatColor.GOLD + "slime", ChatColor.GOLD + "speaker", ChatColor.GOLD + "spider", ChatColor.GOLD + "sponge",
-			ChatColor.GOLD + "squid", ChatColor.GOLD + "stickypiston", ChatColor.GOLD + "stone", ChatColor.GOLD + "taco",
-			ChatColor.GOLD + "tnt2", ChatColor.GOLD + "tnt", ChatColor.GOLD + "toaster", ChatColor.GOLD + "toiletpaper",
-			ChatColor.GOLD + "tv", ChatColor.GOLD + "villager", ChatColor.GOLD + "ghast", ChatColor.GOLD + "tv2", 
-			ChatColor.GOLD + "troll", ChatColor.GOLD + "eye", ChatColor.GOLD + "pokeball", ChatColor.GOLD + "cookie",
-			ChatColor.GOLD + "leaves2"
-		};
-	
-	/** Block List (Page Two) **/
-	String[] secondPage = {
-		ChatColor.GOLD + "workbench", ChatColor.GOLD + "orangewool", ChatColor.GOLD + "stonebrick", 
-		ChatColor.GOLD + "swskeleton", ChatColor.GOLD + "swzombie", 
-		ChatColor.GOLD + "goldblock", ChatColor.GOLD + "fox", ChatColor.GOLD + "potato", ChatColor.GOLD + "cobblestone",
-		ChatColor.GOLD + "water", ChatColor.GOLD + "noteblock", ChatColor.GOLD + "brick"
-	};
 	
 	/** Convert an array to a comma-seperated String. **/
 	public static String arrayToString(String array[]) {
-	    if (array.length == 0) return "";
-	    StringBuilder sb = new StringBuilder();
-	    for (int i = 0; i < array.length; ++i) {
-	        sb.append(", ").append(array[i]).append("");
-	    }
-	    return sb.substring(1);
+		if (array.length == 0) return "";
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < array.length; ++i) {
+			sb.append(ChatColor.RED).append(", ").append(ChatColor.GOLD).append(array[i]);
+		}
+		return sb.substring(4);
 	}
 	
 	/** Quick method for adding heads. **/
 	public ItemStack mblock(ItemStack item, String nick, String microblock) {
-        SkullMeta meta = (SkullMeta) item.getItemMeta();
-        meta.setDisplayName(ChatColor.GOLD + "Microblock: " + ChatColor.WHITE + microblock);
-        meta.setOwner(nick);
-        meta.setLore(mb.lore);
-        item.setItemMeta(meta);
-        return item;
-    }
+		SkullMeta meta = (SkullMeta) item.getItemMeta();
+		meta.setDisplayName(ChatColor.GOLD + "Microblock: " + ChatColor.WHITE + microblock);
+		meta.setOwner(nick);
+		meta.setLore(mb.lore);
+		item.setItemMeta(meta);
+		return item;
+	}
 	
 	/** Add a Microblock to a player's inventory. **/
 	public void addMB(Player p, String headName, boolean safe, String microblock) {
@@ -95,9 +74,6 @@ public class MicroblockCommand implements CommandExecutor {
 		}
 	}
 	
-	/** Get the absolute length of both pages, and store it as an int. **/
-	int totalLength = blocks.length + secondPage.length;
-	
 	/** Command **/
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		
@@ -113,8 +89,7 @@ public class MicroblockCommand implements CommandExecutor {
 				if(args.length == 0) {
 					/** Print out a comma separated list of microblocks (sorted), if the argument length is 0 **/
 					
-					Arrays.sort(blocks);
-					p.sendMessage(ChatColor.RED + "Microblocks (" + totalLength +  "):" + ChatColor.YELLOW + arrayToString(blocks));
+					p.sendMessage(ChatColor.RED + "Microblocks (" + totalLength +  "): " + arrayToString(blocks));
 					p.sendMessage(ChatColor.RED + "Type /mb 2 for the next page.");
 					p.sendMessage(ChatColor.RED + "Usage: /mb <block>");
 				}else if(args.length == 1) {
@@ -130,251 +105,18 @@ public class MicroblockCommand implements CommandExecutor {
 						p.sendMessage(ChatColor.RED + "/givemb <player> <microblock>" + ChatColor.YELLOW + " to give Microblocks to others.");
 					}else if(args[0].equalsIgnoreCase("2")) {
 						p.sendMessage("");
-						p.sendMessage(ChatColor.RED + "Microblocks (Page Two):" + ChatColor.YELLOW + arrayToString(secondPage));
+						p.sendMessage(ChatColor.RED + "Microblocks (Page Two): " + arrayToString(secondPage));
 						p.sendMessage(ChatColor.RED + "Type /mb for the first page.");
 						p.sendMessage(ChatColor.RED + "Usage: /mb <block>");
 					}else if(args[0].equalsIgnoreCase("reload")) {
 						mb.reloadConfig();
 						p.sendMessage(ChatColor.GRAY + "Microblocks " + ChatColor.GOLD + "configuration reloaded.");
-					}else if(args[0].equalsIgnoreCase("apple")) {
-						addMB(p, "MHF_Apple", true, "apple");
-					}else if(args[0].equalsIgnoreCase("arrowdown")) {
-						addMB(p, "MHF_ArrowDown", true, "arrowdown");
-					}else if(args[0].equalsIgnoreCase("arrowleft")) {
-						addMB(p, "MHF_ArrowLeft", true, "arrowleft");
-					}else if(args[0].equalsIgnoreCase("arrowright")) {
-						addMB(p, "MHF_ArrowRight", true, "arrowright");
-					}else if(args[0].equalsIgnoreCase("arrowup")) {
-						addMB(p, "MHF_ArrowUp", true, "arrowup");
-					}else if(args[0].equalsIgnoreCase("enderchest")) {
-						addMB(p, "_Brennian", false, "enderchest");
-					}else if(args[0].equalsIgnoreCase("monitor")) {
-						addMB(p, "Alistor", false, "monitor");
-					}else if(args[0].equalsIgnoreCase("blaze")) {
-						addMB(p, "MHF_Blaze", true, "blaze");
-					}else if(args[0].equalsIgnoreCase("bookshelf")) {
-						addMB(p, "BowAimbot", true, "bookshelf");
-					}else if(args[0].equalsIgnoreCase("ice")) {
-						addMB(p, "icytouch", false, "ice");
-					}else if(args[0].equalsIgnoreCase("ironchest")) {
-						addMB(p, "godman21", false, "ironchest");
-					}else if(args[0].equalsIgnoreCase("furnace")) {
-						addMB(p, "NegativeZeroTV", false, "furnace");
-					}else if(args[0].equalsIgnoreCase("spawner")) {
-						addMB(p, "GAMEZENMASTER", true, "spawner");
-					}else if(args[0].equalsIgnoreCase("qcube")) {
-						addMB(p, "jarrettgabe", true, "qcube");
-					}else if(args[0].equalsIgnoreCase("cactus")) {
-						addMB(p, "MHF_Cactus", true, "cactus");
-					}else if(args[0].equalsIgnoreCase("cake")) {
-						addMB(p, "MHF_Cake", true, "cake");
-					}else if(args[0].equalsIgnoreCase("camera")) {
-						addMB(p, "FHG_Cam", true, "camera");
-					}else if(args[0].equalsIgnoreCase("cavespider")) {
-						addMB(p, "MHF_CaveSpider", true, "cavespider");
-					}else if(args[0].equalsIgnoreCase("horse")) {
-						addMB(p, "gavertoso", false, "horse");
-					}else if(args[0].equalsIgnoreCase("cherry")) {
-						addMB(p, "TheEvilEnderman", false, "cherry");
-					}else if(args[0].equalsIgnoreCase("chest")) {
-						addMB(p, "MHF_Chest", true, "chest");
-					}else if(args[0].equalsIgnoreCase("chicken")) {
-						addMB(p, "MHF_Chicken", true, "chicken");
-					}else if(args[0].equalsIgnoreCase("clock")) {
-						addMB(p, "nikx004", false, "clock");
-					}else if(args[0].equalsIgnoreCase("coconut")) {
-						addMB(p, "KyleWDM", false, "coconut");
-					}else if(args[0].equalsIgnoreCase("companioncube")) {
-						addMB(p, "sk8erace1", false, "companioncube");
-					}else if(args[0].equalsIgnoreCase("cow")) {
-						addMB(p, "MHF_Cow", true, "cow");
-					}else if(args[0].equalsIgnoreCase("derpysnow")) {
-						addMB(p, "GLaDOS", false, "derpysnow");
-					}else if(args[0].equalsIgnoreCase("diamondblock")) {
-						addMB(p, "Fyspyguy", false, "diamondblock");
-					}else if(args[0].equalsIgnoreCase("diamondore")) {
-						addMB(p, "akaBruce", false, "diamondore");
-					}else if(args[0].equalsIgnoreCase("glowstone")) {
-						addMB(p, "samstine11", false, "glowstone");
-					}else if(args[0].equalsIgnoreCase("beachball")) {
-						addMB(p, "PurplePenguinLPs", false, "beachball");
-					}else if(args[0].equalsIgnoreCase("dicewhite")) {
-						addMB(p, "jmars213", false, "dicewhite");
-					}else if(args[0].equalsIgnoreCase("dicered")) {
-						addMB(p, "gumbo632", false, "dicered");
-					}else if(args[0].equalsIgnoreCase("diceblack")) {
-						addMB(p, "azbandit2000", false, "diceblack");
-					}else if(args[0].equalsIgnoreCase("dirt")) {
-						addMB(p, "zachman228", false, "dirt");
-					}else if(args[0].equalsIgnoreCase("dispenser")) {
-						addMB(p, "scemm", false, "dispenser");
-					}else if(args[0].equalsIgnoreCase("emeraldore")) {
-						addMB(p, "Tereneckla", true, "emeraldore");
-					}else if(args[0].equalsIgnoreCase("enderdragon")) {
-						addMB(p, "KingEndermen", true, "enderdragon");
-					}else if(args[0].equalsIgnoreCase("enderman")) {
-						addMB(p, "MHF_Enderman", true, "enderman");
-					}else if(args[0].equalsIgnoreCase("exclamation")) {
-						addMB(p, "MHF_Exclamation", true, "exclamation");
-					}else if(args[0].equalsIgnoreCase("golem")) {
-						addMB(p, "MHF_Golem", true, "golem");
-					}else if(args[0].equalsIgnoreCase("grass")) {
-						addMB(p, "MoulaTime", false, "grass");
-					}else if(args[0].equalsIgnoreCase("haybale")) {
-						addMB(p, "Bendablob", true, "haybale");
-					}else if(args[0].equalsIgnoreCase("headlight")) {
-						addMB(p, "Toby_The_Coder", false, "headlight");
-					}else if(args[0].equalsIgnoreCase("herobrine")) {
-						addMB(p, "MHF_Herobrine", true, "herobrine");
-					}else if(args[0].equalsIgnoreCase("ironblock")) {
-						addMB(p, "metalhedd", false, "ironblock");
-					}else if(args[0].equalsIgnoreCase("witch")) {
-						addMB(p, "scrafbrothers4", false, "witch");
-					}else if(args[0].equalsIgnoreCase("jukebox")) {
-						addMB(p, "C418", true, "jukebox");
-					}else if(args[0].equalsIgnoreCase("lampon")) {
-						addMB(p, "AutoSoup", true, "lampon");
-					}else if(args[0].equalsIgnoreCase("lavaslime")) {
-						addMB(p, "MHF_LavaSlime", true, "lavaslime");
-					}else if(args[0].equalsIgnoreCase("leaves")) {
-						addMB(p, "rsfx", false, "leaves");
-					}else if(args[0].equalsIgnoreCase("lemon")) {
-						addMB(p, "Aesixx", false, "lemon");
-					}else if(args[0].equalsIgnoreCase("lime")) {
-						addMB(p, "greenskull27", false, "lime");
-					}else if(args[0].equalsIgnoreCase("machine")) {
-						addMB(p, "aetherX", false, "machine");
-					}else if(args[0].equalsIgnoreCase("melon")) {
-						addMB(p, "MHF_Melon", true, "melon");
-					}else if(args[0].equalsIgnoreCase("mossycobblestone")) {
-						addMB(p, "Khrenan", false, "mossycobblestone");
-					}else if(args[0].equalsIgnoreCase("muffin")) {
-						addMB(p, "ChoclateMuffin", false, "muffin");
-					}else if(args[0].equalsIgnoreCase("mushroomcow")) {
-						addMB(p, "MHF_MushroomCow", true, "mushroomcow");
-					}else if(args[0].equalsIgnoreCase("netherrack")) {
-						addMB(p, "Numba_one_Stunna", false, "netherrack");
-					}else if(args[0].equalsIgnoreCase("notexture")) {
-						addMB(p, "ddrl46", false, "notexture");
-					}else if(args[0].equalsIgnoreCase("oaklog2")) {
-						addMB(p, "MightyMega", false, "oaklog2");
-					}else if(args[0].equalsIgnoreCase("oaklog")) {
-						addMB(p, "MHF_OakLog", true, "oaklog");
-					}else if(args[0].equalsIgnoreCase("obsidian")) {
-						addMB(p, "loiwiol", false, "obsidian");
-					}else if(args[0].equalsIgnoreCase("ocelot")) {
-						addMB(p, "MHF_Ocelot", true, "ocelot");
-					}else if(args[0].equalsIgnoreCase("orange")) {
-						addMB(p, "hi1232", false, "orange");
-					}else if(args[0].equalsIgnoreCase("eyeofender")) {
-						addMB(p, "Edna_I", true, "eyeofender");
-					}else if(args[0].equalsIgnoreCase("pigzombie")) {
-						addMB(p, "MHF_PigZombie", true, "pigzombie");
-					}else if(args[0].equalsIgnoreCase("pig")) {
-						addMB(p, "MHF_Pig", true, "pig");
-					}else if(args[0].equalsIgnoreCase("piston")) {
-						addMB(p, "JL2579", false, "piston");
-					}else if(args[0].equalsIgnoreCase("podzol")) {
-						addMB(p, "PhasePvP", true, "podzol");
-					}else if(args[0].equalsIgnoreCase("popcorn")) {
-						addMB(p, "ZachWarnerHD", false, "popcorn");
-					}else if(args[0].equalsIgnoreCase("present")) {
-						addMB(p, "I_Xenon_I", false, "present");
-					}else if(args[0].equalsIgnoreCase("pumpkinface")) {
-						addMB(p, "Koebasti", false, "pumpkinface");
-					}else if(args[0].equalsIgnoreCase("pumpkin")) {
-						addMB(p, "MHF_Pumpkin", true, "pumpkin");
-					}else if(args[0].equalsIgnoreCase("quartzblock")) {
-						addMB(p, "bubbadawg01", true, "quartzblock");
-					}else if(args[0].equalsIgnoreCase("question")) {
-						addMB(p, "MHF_Question", true, "question");
-					}else if(args[0].equalsIgnoreCase("radio")) {
-						addMB(p, "uioz", true, "radio");
-					}else if(args[0].equalsIgnoreCase("redsand")) {
-						addMB(p, "OmniSulfur", true, "redsand");
-					}else if(args[0].equalsIgnoreCase("redstoneore")) {
-						addMB(p, "annayirb", false, "redstoneore");
-					}else if(args[0].equalsIgnoreCase("rubixcube")) {
-						addMB(p, "iTactical17", false, "rubixcube");
-					}else if(args[0].equalsIgnoreCase("sand")) {
-						addMB(p, "rugofluk", false, "sand");
-					}else if(args[0].equalsIgnoreCase("sheep")) {
-						addMB(p, "MHF_Sheep", true, "sheep");
-					}else if(args[0].equalsIgnoreCase("slime")) {
-						addMB(p, "MHF_Slime", true, "slime");
-					}else if(args[0].equalsIgnoreCase("speaker")) {
-						addMB(p, "b1418", false, "speaker");
-					}else if(args[0].equalsIgnoreCase("spider")) {
-						addMB(p, "MHF_Spider", true, "spider");
-					}else if(args[0].equalsIgnoreCase("sponge")) {
-						addMB(p, "pomi44", false, "sponge");
-					}else if(args[0].equalsIgnoreCase("squid")) {
-						addMB(p, "MHF_Squid", true, "squid");
-					}else if(args[0].equalsIgnoreCase("stickypiston")) {
-						addMB(p, "Panda4994", false, "stickypiston");
-					}else if(args[0].equalsIgnoreCase("stone")) {
-						addMB(p, "Robbydeezle", false, "stone");
-					}else if(args[0].equalsIgnoreCase("taco")) {
-						addMB(p, "Crunchy_Taco34", false, "taco");
-					}else if(args[0].equalsIgnoreCase("tnt2")) {
-						addMB(p, "MHF_TNT2", true, "tnt2");
-					}else if(args[0].equalsIgnoreCase("tnt")) {
-						addMB(p, "MHF_TNT", true, "tnt");
-					}else if(args[0].equalsIgnoreCase("toaster")) {
-						addMB(p, "pologobbyboy", false, "toaster");
-					}else if(args[0].equalsIgnoreCase("toiletpaper")) {
-						addMB(p, "Ethegj", false, "toiletpaper");
-					}else if(args[0].equalsIgnoreCase("tv")) {
-						addMB(p, "Metroidling", false, "tv");
-					}else if(args[0].equalsIgnoreCase("villager")) {
-						addMB(p, "MHF_Villager", true, "villager");
-					}else if(args[0].equalsIgnoreCase("ghast")) {
-						addMB(p, "MHF_Ghast", true, "ghast");
-					}else if(args[0].equalsIgnoreCase("oakplanks")) {
-						addMB(p, "terryxu", false, "oakplanks");
-					}else if(args[0].equalsIgnoreCase("gamecube")) {
-						addMB(p, "ReflectedNicK", false, "gamecube");
-					}else if(args[0].equalsIgnoreCase("redstoneblock")) {
-						addMB(p, "AlexDr0ps", false, "redstoneblock");
-					}else if(args[0].equalsIgnoreCase("tv2")) {
-						addMB(p, "nonesuchplace", false, "tv2");
-					}else if(args[0].equalsIgnoreCase("troll")) {
-						addMB(p, "Trollface20", false, "troll");
-					}else if(args[0].equalsIgnoreCase("eye")) {
-						addMB(p, "Taizun", false, "eye");
-					}else if(args[0].equalsIgnoreCase("parrot")) {
-						addMB(p, "Luk3011", false, "parrot");
-						p.sendMessage(ChatColor.GOLD + "This microblock is " + ChatColor.GRAY + "diagonal" + ChatColor.GOLD + ".");
-					}else if(args[0].equalsIgnoreCase("pokeball")) {
-						addMB(p, "Chuzard", false, "pokeball");
-					}else if(args[0].equalsIgnoreCase("cookie")) {
-						addMB(p, "QuadratCookie", false, "cookie");
-					}else if(args[0].equalsIgnoreCase("workbench")) {
-						addMB(p, "Russellgoo97", false, "workbench");
-					}else if(args[0].equalsIgnoreCase("orangewool")) {
-						addMB(p, "titou36", false, "orangewool");
-					}else if(args[0].equalsIgnoreCase("stonebrick")) {
-						addMB(p, "Cakers", false, "stonebrick");
-					}else if(args[0].equalsIgnoreCase("swskeleton")) {
-						addMB(p, "lesto123", false, "swskeleton");
-					}else if(args[0].equalsIgnoreCase("swzombie")) {
-						addMB(p, "maximxc", false, "swzombie");
-					}else if(args[0].equalsIgnoreCase("goldblock")) {
-						addMB(p, "StackedGold", false, "goldblock");
-					}else if(args[0].equalsIgnoreCase("fox")) {
-						addMB(p, "hugge75", false, "fox");
-					}else if(args[0].equalsIgnoreCase("potato")) {
-						addMB(p, "CraftPotato13", false, "potato");
-					}else if(args[0].equalsIgnoreCase("leaves2")) {
-						addMB(p, "half_bit", false, "leaves2");
-					}else if(args[0].equalsIgnoreCase("cobblestone")) {
-						addMB(p, "_Rience", true, "cobblestone");
-					}else if(args[0].equalsIgnoreCase("water")) {
-						addMB(p, "emack0714", false, "water");
-					}else if(args[0].equalsIgnoreCase("noteblock")) {
-						addMB(p, "PixelJuke", false, "noteblock");
-					}else if(args[0].equalsIgnoreCase("brick")) {
-						addMB(p, "BrickInTheHead", false, "brick");
+					}else if(MicroblockType.BLOCK_MAP.containsKey(args[0].toLowerCase())) {
+						MicroblockType mbt = MicroblockType.BLOCK_MAP.get(args[0].toLowerCase());
+						addMB(p, mbt.getPlayerName(), mbt.isSafe(), mbt.getBlockName());
+						if (mbt.getBlockName().equalsIgnoreCase("parrot")) {
+							p.sendMessage(ChatColor.GOLD + "This microblock is " + ChatColor.GRAY + "diagonal" + ChatColor.GOLD + ".");
+						}
 					}else {
 						p.sendMessage(ChatColor.RED + "Unknown microblock!");
 						p.sendMessage(ChatColor.RED + "Use /mb for a list of microblocks.");
@@ -389,6 +131,28 @@ public class MicroblockCommand implements CommandExecutor {
 		}
 		
 		return false;
+	}
+
+	@Override
+	public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
+		if(command.getLabel().equalsIgnoreCase("microblocks") && sender instanceof Player && sender.hasPermission("mb.use")) {
+			List<String> completions = new ArrayList<String>();
+
+			if ("2".startsWith(args[0])) {
+				completions.add("2");
+			}
+			if ("reload".startsWith(args[0])) {
+				completions.add("reload");
+			}
+			for (String key : MicroblockType.BLOCK_MAP.keySet()) {
+				if (key.startsWith(args[0])) {
+					completions.add(key);
+				}
+			}
+			Collections.sort(completions, String.CASE_INSENSITIVE_ORDER);
+			return completions;
+		}
+		return null;
 	}
 	
 }
