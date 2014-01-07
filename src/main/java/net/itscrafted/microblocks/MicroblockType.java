@@ -52,6 +52,7 @@ public class MicroblockType {
 		add("cactus", "MHF_Cactus", true);
 		add("cake", "MHF_Cake", true);
 		add("camera", "FHG_Cam", true);
+		add("camera2", "gocodygo", false);
 		add("cavespider", "MHF_CaveSpider", true);
 		add("horse", "gavertoso", false);
 		add("cherry", "TheEvilEnderman", false);
@@ -154,5 +155,6 @@ public class MicroblockType {
 		add("water", "emack0714", false);
 		add("noteblock", "PixelJuke", false);
 		add("brick", "BrickInTheHead", false);
+		add("penguin", "Patty14", false);
 	}
 }
