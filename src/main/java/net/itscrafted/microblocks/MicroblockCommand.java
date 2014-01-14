@@ -34,7 +34,7 @@ public class MicroblockCommand implements CommandExecutor, TabCompleter {
 		Arrays.sort(blocks);
 
 		/** Block List (Page Two) **/
-		secondPage = Arrays.copyOfRange(blocks, (totalLength/2) + 1, totalLength);
+		secondPage = Arrays.copyOfRange(blocks, totalLength/2, totalLength);
 		blocks = Arrays.copyOfRange(blocks, 0, totalLength/2);
 		
 	}
