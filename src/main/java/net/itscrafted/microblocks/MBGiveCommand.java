@@ -53,9 +53,8 @@ public class MBGiveCommand implements CommandExecutor, TabCompleter {
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		
 		/** Microblocks Command **/
-		if(cmd.getLabel().equalsIgnoreCase("givemb") && sender instanceof Player) {
-			/** Get the Player **/
-			Player p = (Player) sender;
+		if(cmd.getLabel().equalsIgnoreCase("givemb")) {
+                        CommandSender p = sender;
 			
 			/** Permission Check **/
 			if(!p.hasPermission("mb.give")) {
